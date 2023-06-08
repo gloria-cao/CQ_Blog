@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="0a2d2077-3bc3-4161-a2c6-81ee78bd215f" name="Default Changelist" comment="" />
+    <list default="true" id="0a2d2077-3bc3-4161-a2c6-81ee78bd215f" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/source/_posts/Basic-concept.md" beforeDir="false" afterPath="$PROJECT_DIR$/source/_posts/Basic-concept.md" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -21,6 +23,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
   </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="0a2d2077-3bc3-4161-a2c6-81ee78bd215f" name="Default Changelist" comment="" />
@@ -29,7 +32,11 @@
       <option name="presentableId" value="Default" />
       <updated>1686130500628</updated>
       <workItem from="1686130505032" duration="9000" />
+      <workItem from="1686187294423" duration="151000" />
     </task>
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
   </component>
 </project>

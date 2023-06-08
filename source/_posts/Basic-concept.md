@@ -17,11 +17,14 @@ tags:
 # 浏览器
 ## 浏览器渲染引擎 | 浏览器内核 | Rendering engine
 1. 解析网页语法并渲染显示网页  
-2. Trident[^三叉戟]： IE、360安全浏览器  
-3. Gecko[^壁虎]：Firefox  
+2. Trident`三叉戟`： IE、360安全浏览器  
+3. Gecko`壁虎`：Firefox  
 4. Webkit：Safari、360极速浏览器等  
 5. Blink：Google Chrome 、edge  
 
 ## 浏览器适配
 1. 浏览器内核不同，可能需要对浏览器进行适配  
-2. 
+
+## 浏览器渲染原理
+
+1. ![浏览器渲染原理](https://blog-images-1310572444.cos.ap-guangzhou.myqcloud.com/image-20230608140831467.png)
