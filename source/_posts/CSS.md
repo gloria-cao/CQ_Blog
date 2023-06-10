@@ -173,6 +173,11 @@ tags:
 ### 理解
 1. flexbox：弹性盒子
 2. display：flex
+3. 开启flex布局的元素叫**flex container**；flex container里面的直接子元素叫做**flex item**
+4. 主轴、交叉轴(可变)
+
+   ![flex布局模型](https://blog-images-1310572444.cos.ap-guangzhou.myqcloud.com/image-20230609215913006.png)
+
 
 ## grid layout | 二维
 ### 理解
