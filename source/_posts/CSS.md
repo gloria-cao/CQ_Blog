@@ -100,6 +100,8 @@ tags:
 7. 伪元素选择器 **::before  ::after**
 	用来给一个元素的内容前或后插入其他内容的东西	
 
+## 盒子模型
+
 ## CSS继承-层叠-元素类型
 
 ## 定位 | position
@@ -138,12 +140,6 @@ tags:
 ### 总结
 ![position定位总结](https://blog-images-1310572444.cos.ap-guangzhou.myqcloud.com/image-20230609110822255.png)
 
-## 元素居中方案
-### absolute | fixed
-1. 子绝父相，left、right、bottom、top都设置为0，margin设置为aotu，元素由宽高_143
-2. **不存在兼容性问题**
-![绝对定位元素居中](https://blog-images-1310572444.cos.ap-guangzhou.myqcloud.com/image-20230609113500652.png)
-
 ## 其他
 ### auto
 1. 交给浏览器来处理，具体交给浏览器处理
@@ -177,8 +173,70 @@ tags:
 4. 主轴、交叉轴(可变)
 
    ![flex布局模型](https://blog-images-1310572444.cos.ap-guangzhou.myqcloud.com/image-20230609215913006.png)
+   
+### container
+1. **flex-direction**: 决定主轴方向
+	* row-reverse | row | column | column-reverse
+	
+2. **flex-wrap**： flex-container单行还是多行显示
+	* 元素最终展示的宽度和width有关系，但没有绝对的关系
+	* flex-wrap: nowrap 单行显示
+	* flex-wrap: wrap 多行显示
+	* flex-wrap: wrap-reserve 多行显示，与wrap相比cross-start、cross-end相反
+	
+3. **flex-flow: flex-direction flex-wrap**
+
+4. **justify-content**
+	* 主轴对齐方式
+	![对齐方式](https://blog-images-1310572444.cos.ap-guangzhou.myqcloud.com/image-20230610094741669.png)
+	
+5. **align-item**
+	* 交叉轴对齐方式
+	* 在flex布局中，normal和scratch的样式一样拉伸(height：auto)
+	* 在设置具体高度后，不会进行拉伸
+	![flex交叉轴对齐方式](https://blog-images-1310572444.cos.ap-guangzhou.myqcloud.com/image-20230610100943832.png)
+
+6. **align-content** 少
+	* 在交叉轴中多行中，类似主轴中的justify-content
+	![align-content](https://blog-images-1310572444.cos.ap-guangzhou.myqcloud.com/image-20230610102839625.png)
+
+### flex-item
+1. order： 设置顺序，值越小越往后
+2. flex-shlef:
+3. **flex-grow**: 决定flex items如何扩展、拉伸，默认值:0
+4. flex-shrink：决定flex items如何缩小，默认值：1
+5. flex-basis
+6. flex：缩写属性
+
+### 其他
+
+![布局问题](https://blog-images-1310572444.cos.ap-guangzhou.myqcloud.com/image-20230610105917292.png)
+
+增加（列数-2）个span，虽然是无用元素，但是占据位置，没有给高度默认不显示高度可以达到相应效果
+
+## 形变
+### transform
+1. 对行内级非替换元素无效
+### transition
+### animation
+### vertical-align
+
+
 
 
 ## grid layout | 二维
 ### 理解
 1. 兼容性不好
+
+## 形变
+
+
+
+## 元素居中方案
+
+### absolute | fixed
+
+1. 子绝父相，left、right、bottom、top都设置为0，margin设置为aotu，元素由宽高_143
+2. **不存在兼容性问题**
+   ![绝对定位元素居中](https://blog-images-1310572444.cos.ap-guangzhou.myqcloud.com/image-20230609113500652.png)
+3. ![水平居中方案](C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20230612113931709.png)
