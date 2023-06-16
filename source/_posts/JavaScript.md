@@ -173,6 +173,7 @@ tags:
 ## 闭包
 1. 函数及其关联环境组成的就是闭包（为什么能访问到呢？本质上是通过作用域链来实现的），如果没有闭包，函数再不传递参数时，是不能访问到外层作用域的数据的，所以在JavaScript中只要创建函数就会形成闭包，因为它本身会通过作用域链连接顶层作用域
 2. 内存泄漏：就垃圾回收装置可达性，一直用不上，占用内存
+3. ![闭包基础概念](https://blog-images-1310572444.cos.ap-guangzhou.myqcloud.com/image-20230616091008638.png)
 
 ## arguments
 1. 对应于传递给函数的参数的类数组对象 **本身不是数组类型，而是一个对象类型，拥有一些数组的特性如length、index等，没有数组的一些方法如filter、map等**
@@ -266,3 +267,130 @@ value: Person
 # 面向对象-继承
 1. var obj = {}  本质上等于 var obj = new Object()
 2. obj对象是有__proto__
+
+## 原型链实现方法的继承
+1. 通过父类new一个对象，让子类的显式原型指向该对象，可以实现方法的继承
+## 借用构造函数实现属性继承 | constructor stealing
+1. 在子类中写`Person.call(this, name, age,height)`
+	* 因为new操作创建空对象，**将空对象赋值给this**，通过call调用父类方法将this(指向student)传递给父类，那么在父类进行this.age = age就会使用的是子类的属性，就可以把属性都放在stu对象里面
+
+## 组合借用继承的问题 | 组合继承
+1. **弊端**
+	* 调用两次构造函数
+	* 所有的子类实例事实上都会拥有两份父类的属性
+
+## 原型式继承函数 | 寄生组合式继承
+1. 满足条件
+	* 必须创建一个对象
+	* 这个对象的隐式原型必须指向父类的显式原型
+	* 将这个对象赋值给子类的显式原型
+
+2. ```javascript
+   // 方案一
+   var obj = {}
+   Object.setPrototypeOf(obj, Person.prototype)
+   Student.prototype = obj
+   
+   // 方案二
+   var  obj = Object.create(Person.prototype) //会创建一个对象，然后将该显式原型赋值给obj的隐式原型
+   console.log(obj.__proto__)
+   Student.prototype = obj
+   // 方案三封装成函数,可能存在兼容性问题
+   function inherit(SubType, SuperType) {
+       subType.prototype = SuperType.prototype
+       // 构造函数指向本身
+       Object.defineProtoType(SubType.prototype, "constructor", {
+           enumrable: false,
+           configurable: true,
+           writable: true,
+           value: Subtype
+       })
+   }
+
+# 防抖debounce 
+1. 操作时不执行，确定不操作了才执行
+1. 譬如：玩手机一直玩不会息屏，但一分钟后不玩就会息屏
+1. 每次操作前都会先清除掉定时器，并开始定时器
+
+
+
+# 节流 | throttle
+
+1. 持续触发事件，到时间必须执行一次
+
+2. 譬如：坐公交时，公交十分钟一趟
+
+3. 接收一个函数，记录开启时间，记录当前时间，只有两者时间差值大于传入时间才触发，并用现在的时间赋值给开始时间
+
+4. ```javascript
+   function throttle(fn, time){
+       let startTime = 0
+       return function() {
+           let nowTime = new Date()
+           if(nowTime - startTime > time) {
+               // 不理解这里
+               fn.apply(this, arguments)
+               startTime = nowTime
+           }
+       }
+   }
+   ```
+
+5. 
+
+
+
+# Promise
+
+1. 优雅的异步请求，下一个函数的执行会依赖上一个函数执行的结果，传统上就是在函数中不断调用函数形成回调低于，而Promise就很好解决了这个问题
+2. 三种状态 ： **pending、 fulfilled、rejected三种状态**
+3. Promise本身是构造函数，可以通过new来创建，接收一个函数，函数又接受两个回调函数，then的执行本身依赖上一步的结果，then本身接收两个回调函数reject和resolve，每步写reject太麻烦了，就可以通过catch来进行异常捕获，在.catch的方法会监听上诉then的过程是否出错，finally无论怎么样都会执行。
+
+
+
+# 递归
+
+1. 反复剥洋葱皮，知道剥到尽头
+2. 调用自身，设置终止条件
+
+# 手写Promise
+
+# ES6
+
+1. **let、const**，避免使用var定义变量，避免变量提升
+2. **模块化**，通过需要导出的模块前面加上export，需要引入的加上import from
+3. **解构**：只需要取两个值，直接将数组赋值给另一个数组即可，中间元素使用空格代替
+4. **扩展运算符**：拷贝数组(…arr赋值给)，合并数组，将多个数组扩展后放到新数组即可； 将数组扩展为函数的参数；克隆对象、合并对象
+5. **给参数赋值默认值**
+6. **对象属性的简写，增强语法**
+7. **async、await**
+8. **includes**：判断数组是否包含某一项
+9. **指数操作符** 
+10. **Object.keys()  | Object.values() | Object.entries()键值对**
+11. null传导运算符 ？ ||  ？？
+12. **模板字符串**
+
+# async | await
+
+1. 能暂停执行yeild()、也能恢复执行next()
+
+
+
+# git
+
+1. ![git提交流程](https://blog-images-1310572444.cos.ap-guangzhou.myqcloud.com/image-20230615231855558.png)
+
+
+
+# 路由
+
+1. 前端路由实现方式
+2. **  # **hash
+3. history
+   1. back
+   2. go
+   3. 刷新页面可能404
+
+
+
+![npm run serve执行了什么](https://blog-images-1310572444.cos.ap-guangzhou.myqcloud.com/image-20230616090402513.png)

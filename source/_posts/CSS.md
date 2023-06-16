@@ -240,3 +240,53 @@ tags:
 2. **不存在兼容性问题**
    ![绝对定位元素居中](https://blog-images-1310572444.cos.ap-guangzhou.myqcloud.com/image-20230609113500652.png)
 3. ![水平居中方案](C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20230612113931709.png)
+
+# 适配
+
+1. 为什么需要适配
+
+   各个移动端设备、屏幕尺寸、分辨率大小不一致
+
+   让拥有不同屏幕大小的终端设备拥有一致的UI界面
+
+2. 1px问题
+
+3. 高清屏图片显式模糊问题
+
+## 基础概念
+
+1. **屏幕尺寸**
+
+   屏幕对角线的长度，单位英寸
+
+   1英寸 = 2.54厘米
+
+2. **物理像素(设备像素)**
+
+   设备屏幕上真实存在的像素点
+
+   是屏幕设备像的最小单位
+
+   每个物理像素由3个颜色像素构成
+
+   每个物理像素可以表示2^24中颜色
+
+3. **屏幕密度(PPI)**
+
+   屏幕密度是指一个设备表面上存在的像素数量，他通常以每英寸多少像素来计算
+
+   ![PPI计算](https://blog-images-1310572444.cos.ap-guangzhou.myqcloud.com/image-20230615134031238.png)
+
+   ![Iphone6PPi](https://blog-images-1310572444.cos.ap-guangzhou.myqcloud.com/image-20230615134106819.png)
+
+4. 物理分辨率
+
+   物理分辨率是指纵横向上的物理像素点
+
+   iphone6 屏幕分辨率为 **750 * 1334**
+
+   分辨率小颗粒感明显
+
+5. css像素
+
+   ![](https://blog-images-1310572444.cos.ap-guangzhou.myqcloud.com/image-20230615134528402.png)
