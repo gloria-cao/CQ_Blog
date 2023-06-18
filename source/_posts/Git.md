@@ -11,6 +11,7 @@ Git官方文档：https://git-scm.com/docs
 ## 分布式版本控制
 1. 没有中央服务器，每个人的电脑就是一个完整的版本库，工作的时候不需要联网，因为版本都在自己的电脑上。
 2. 协同的方法：就是能看到对方更改了那些代码和文件 
+3. 版本控制的优势在于 **对于更改的控制，对更改进行记录，以便将来进行查阅和修正**
 ## 集中式版本控制 SVN
 1. 版本库是集中放在中央服务器的，在工作的时候，用的都是自己的电脑，所以首先 要从中央服务器得到 **最新的版本**，然后工作，工作完成后，需要把自己做完的工作推送到中央服务器。
 2. **集中式版本控制系统是必须联网才能工作的，对网络要求比较高**
@@ -38,8 +39,8 @@ Git官方文档：https://git-scm.com/docs
     建议不要乱动主干。如果你编辑了一个小组项目的主干分支，你的改动会影响到其他人，而且很快会出现 **合并冲突**
 
 2. **开发分支(集成分支 | develop | dev)**
-  与主分支平行。该分支包含了为下一个版本所作的最新开发修改。它拥有该版本的最终源代码。
-  当开发分支达到稳定状态并准备发布时，应与主干分支合并，并标记为发布版本。
+    与主分支平行。该分支包含了为下一个版本所作的最新开发修改。它拥有该版本的最终源代码。
+    当开发分支达到稳定状态并准备发布时，应与主干分支合并，并标记为发布版本。
 
   ![分支概述](https://blog-images-1310572444.cos.ap-guangzhou.myqcloud.com/image-20230618100812161.png)
 
@@ -47,25 +48,41 @@ Git官方文档：https://git-scm.com/docs
 
 3. git branch xxx `刚刚开始创建时，是**不会切换**到该分支里面的，按q退出`
 
-4. git branch -b xxx `创建分支并切换到该分支里面`
+4. git checkout-b xxx `创建分支并切换到该分支里面`
 
-5. git branch `查看分支`
+5. git branch `查看分支` 
 
-6. git checkout  xxx`切换到分支`
+6. git branch -a `查看本地和远程的分支`
 
-7. 分支的文件是从主文件进行复制的，如果在分支里删除了文件，那么提交到主分支还是会存在，但是如果该文件在gitignore中那就不会回来了
+7. git checkout  xxx`切换到分支`
 
-8. git branch -d "分支名" `删除分支`；要是十分确认要删除那就将-d改为-D
+8. 分支的文件是从主文件进行复制的，如果在分支里删除了文件，那么提交到主分支还是会存在，但是如果该文件在gitignore中那就不会回来了
 
-9. git merge 分支名 `将别的分支合并到当前分支里面，如果有冲突，修改文本选择正确的即可`
+9. git branch -d "分支名" `删除分支`；要是十分确认要删除那就将-d(删除已被合并过的分支)改为-D
 
-10. 当我在本地创建了分支，但是远程仓库没有创建该分支时是无法将该分支推送到远程仓库中的 
+10. git merge 分支名 `将别的分支合并到当前分支里面，如果有冲突，修改文本选择正确的即可`
 
-   `git push --set-upstream origin a`
+11. 当我在本地创建了分支，但是远程仓库没有创建该分支时是无法将该分支推送到远程仓库中的 
 
-   通过这条命令推送到远程仓库
+    1. `git push --set-upstream origin a`， 通过这条命令推送到远程仓库
 
-11. 
+12. 向远程仓库推送
+
+    `git push {远程仓库remote名称} {分支名称}`
+
+    远程仓库的名称是你在remote时指定的名称，默认为origin
+
+    要推送所有分支则使用--all参数
+
+13. 设置GitHub的默认分支
+
+    ![修改GitHub默认分支](https://blog-images-1310572444.cos.ap-guangzhou.myqcloud.com/image-20230618141633363.png)
+
+14. 删除远程分支
+
+    在GitHub后台进行删除，但是 **会导致本地仓库中缓存的远程分支与实际远程分支不一致。处理方案：同步远程分支，在git-bash中执行 ：`git remote prune {origin或是你远程仓库的名称	}`**
+
+    在客户端中删除，**默认分支不能被删除 删除远程分支 ： `git push {远程仓库remote名称} -d {远程分支名称}`**
 
 ## gitignore
 1. 配置忽略规则，并非所有文件都需要保存到版本库中，譬如日志文件、临时文件及工具生成的文件。
@@ -138,6 +155,136 @@ collaborate (see also: git help workflows)
 
 ```
 
+## git日志 | log
+
+1. 基本流程
+
+   ![git log 的基本流程 ](https://blog-images-1310572444.cos.ap-guangzhou.myqcloud.com/image-20230618125331110.png)
+
+2. git log --patch
+
+   ![git patch内容详解](https://blog-images-1310572444.cos.ap-guangzhou.myqcloud.com/image-20230618134232816.png)
+
+3. git log --after是不包含当前该日期 
+
+4. git log --before 是包含当前这个日期的
+
+**引用日志**
+
+1. git reflog
+2. 他记录了HEAD节点和分支引用所指向的历史
+3. reflog记录所有的更改，当你项目损坏时(只要提交过)，他就给你挽回的机会，但是他只 **保存在本地仓库(不能push)，且默认保留90天，这个日期可以进行设置**
+
+## git tag
+
+1. 概念 `git tag xxx`
+
+   * 标签是对某个commit进行标记，相当于起别名
+   * 当开发到一个阶段，为凸显这次提交比较重要，可以为其打上标签。入标记发布节点
+   * 标记一个相关的提交阶段，已被来参考，标记发布节点，用于项目发布
+
+   ![标签整理](https://blog-images-1310572444.cos.ap-guangzhou.myqcloud.com/image-20230618143015584.png)
+
+2. 创建
+
+   **轻量标签：因为标签的内容最少，达标方式也最为简单**
+
+   **追加标签：为指定提交打标签`git tag {标签名} {commit-id}`**可通过git log --online查看当前的commit-id
+
+   **注释标签：给标签写注释信息`git tag {标签名称} -a -m {注释} {commit-id}` -a全称为 --annotate，意为为标签添加注释，-m为指定注释信息文本**
+
+3. 查看
+
+   `git tag`
+
+   `git tag -l {匹配的内容*}`
+
+   `git show {标签名称}` 查看标签完整内容
+
+4. 删除
+
+   删除本地 `git tag -d {标签名}` 本地删除标签远端库是不受影响的
+
+   删除远端库的标签 `git push {远端库名称} -d {标签名}`
+
+5. 共享
+
+   实现本地库和远程库的一个共享
+
+   `git push {romote的远程仓库名} {标签名}`
+
+   `git push {romote的远程仓库名} --tags`
+
+6. 版本发布
+
+   Releases发行版
+
+# git操作问题
+
+## 本地仓库关联多个远程仓库
+
+1. **github是一个代码托管平台。看可以实现代码分享和协同发展。在github、gitlab、gitee等平台上面对应的本地仓库被称为远程仓库**
+
+2. 过程 
+    创建本地仓库
+
+  	git init 、 git add . 、git commit -m "xxx"
+
+  创建远程仓库并连接 无需创建readme文件，**本地仓库与远程仓库名称保持一致，仓库为共有的**
+
+  ![本地仓库连接远程仓库操作](https://blog-images-1310572444.cos.ap-guangzhou.myqcloud.com/image-20230618105323856.png)
+
+  关联第二个远程仓库，gitee为例(public创建完成后才能更改)，**创建远程仓库同上**
+
+  会出现已存在远程仓库的错误信息，只需要将origin改成gitee这个远程仓库名即可
+
+  `git remote add gitee https://gitee.com/caoqin0426/text1.git`
+
+  ![关联第二个远程仓库](https://blog-images-1310572444.cos.ap-guangzhou.myqcloud.com/image-20230618111201992.png)
+
+  ![具体操作](https://blog-images-1310572444.cos.ap-guangzhou.myqcloud.com/image-20230618111343260.png)
+
+3. 查看当前关联的远程仓库 `git remote -v | git remote show`
+
+4. 重命名远程仓库在本地显示 `git remote rename origin github`
+
+  ![操作过程](https://blog-images-1310572444.cos.ap-guangzhou.myqcloud.com/image-20230618111757314.png)
+
+5. 移除已关联的远程仓库
+
+  `git remote remove <远程仓库在本地名称>`
+
+6. 其他操作可看 `git remote -h`
+
+
+
+
+## 为什么每次push都不需要账号密码？
+
+![存放用户凭据](https://blog-images-1310572444.cos.ap-guangzhou.myqcloud.com/image-20230618091417320.png)
+
+## 提交冲突和解决方法
+
+1. 原因：
+
+   提交者的版本库 < 远程库
+
+2. git pull `实现本地同步`
+
+3. 解决
+
+   能自动合并的冲突
+
+   ​	即团队内人员**各司其职，不改动别人负责模块代码**，提交发生冲突时，直接进行pull操作，合并冲突，然后在push推送自己的代码进远程仓库
+   **手动解决冲突**
+   
+   	查看冲突位置，团队成员判断需要保留的部分，解决该冲突在进行合并
+   	git diff xxx
+
+## commit 提交修正
+1. 对提交错误的文件进行修正（此时还未push） | 提交时遗漏了文件 | 提交信息错误的修正 | 长开发周期中的小提交
+	`git commit --amend -m '修正信息'`
+	此时日志中就不会出现上一次commit文件的信息，而是修正后的信息。日志是方便我们日后查找代码的不要随便乱提交。	
 
 
 
@@ -195,10 +342,17 @@ collaborate (see also: git help workflows)
 
 # github
 
+## fork |  PR
 
+1. PR是拉请求的操作 
+
+### fork
+
+1. for不是Git操作，而是一个GitHub操作，是服务端的代码仓库克隆
+2. fork后会在自己的GitHub账户创建一个新仓库，它包含了原来的仓库所有的内容，包括分支、Tag、提交历史等
+3. 你可以对fork出的仓库自由提交，并通过PR(Pull Request)贡献回原仓库
+4. 由于fork出的新仓库是基于原仓库的，但二者在后续开发中可能会大相径庭，所以被称为 '分叉'
 
 # 问题
 
-1. 为什么每次push都不需要账号密码
-
-   ![存放用户凭据](https://blog-images-1310572444.cos.ap-guangzhou.myqcloud.com/image-20230618091417320.png)
+1. 
